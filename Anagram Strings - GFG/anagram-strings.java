@@ -25,7 +25,7 @@ class Solution {
         int[] count= new int[26];
         for(int i=0;i<S1.length();i++)
         {
-            count[(int)S1.charAt(i)-97]++;
+            count[S1.charAt(i)-'a']++;
         }
         for(int i=0;i<S2.length();i++)
         {
