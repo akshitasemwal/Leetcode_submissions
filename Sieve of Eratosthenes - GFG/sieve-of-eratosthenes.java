@@ -37,7 +37,7 @@ class Solution{
             if(prime[i] == true)
             {
                 result.add(i);
-                for(int j = 2*i; j <= n; j += i)
+                for(int j = i*i; j <= n; j += i)
                 {
                     if( j % i == 0)
                     {
