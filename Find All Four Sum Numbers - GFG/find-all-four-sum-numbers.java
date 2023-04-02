@@ -45,66 +45,42 @@ class GFG {
 // k : the quadruple sum required
 
 class Solution {
-    public ArrayList<ArrayList<Integer>> fourSum(int[] nums, int target) {
-        // int n = arr.length;
-        // ArrayList<ArrayList<Integer>> res = new ArrayList<>();
-        // Arrays.sort(arr);
-        // for(int i = 0; i< n-3; i++)
-        // {
-        //     for(int j = i+1; j<n-2; j++)
-        //     {
-        //         int t = x- arr[i] - arr[j];
-        //         int k = j+1;
-        //         int l = n-1;
-        //         while(k<l)
-        //         {
-        //             int val = arr[k]+arr[l];
-        //             if(val == t)
-        //             {
-        //                 ArrayList<Integer> list = new ArrayList<>();
-        //                 list.add(arr[i]);
-        //                 list.add(arr[j]);
-        //                 list.add(arr[k]);
-        //                 list.add(arr[l]);
-        //                 res.add(list);
-        //             }
-        //             else if(val<t)
-        //             {
-        //                 k++;
-        //             }
-        //             else
-        //             {
-        //                 l--;
-        //             }
-        //         }
-        //     }
-        // }
-        // return res;
-        Set<ArrayList<Integer>> set = new LinkedHashSet<>();
-        Arrays.sort(nums);
-        int n = nums.length;
-        for(int i =0;i<n-3;i++){                                          //[1]
-            for(int j =i+1;j<n-2;j++){                                    //[2]
-                int t = target-nums[i]-nums[j];
+    public ArrayList<ArrayList<Integer>> fourSum(int[] arr, int x) {
+        int n = arr.length;
+        Set<ArrayList<Integer>> res = new LinkedHashSet<>();
+        Arrays.sort(arr);
+        for(int i = 0; i< n-3; i++)
+        {
+            for(int j = i+1; j<n-2; j++)
+            {
+                int t = x- arr[i] - arr[j];
                 int k = j+1;
                 int l = n-1;
-                while(k<l){                                               //[3]
-                    int val=  nums[k]+nums[l];
-                    if(val<t)k++;
-                    else if(val>t)l--;
-                    else{
-                        ArrayList<Integer> temp = new ArrayList<>();
-                        temp.add(nums[i]);
-                        temp.add(nums[j]);
-                        temp.add(nums[k]);
-                        temp.add(nums[l]);
-                        set.add(temp);
+                while(k<l)
+                {
+                    int val = arr[k]+arr[l];
+                    if(val == t)
+                    {
+                        ArrayList<Integer> list = new ArrayList<>();
+                        list.add(arr[i]);
+                        list.add(arr[j]);
+                        list.add(arr[k]);
+                        list.add(arr[l]);
+                        res.add(list);
                         k++;
+                    }
+                    else if(val<t)
+                    {
+                        k++;
+                    }
+                    else
+                    {
+                        l--;
                     }
                 }
             }
         }
-        ArrayList<ArrayList<Integer>> ans = new  ArrayList<ArrayList<Integer>>(set);
+        ArrayList<ArrayList<Integer>> ans = new  ArrayList<ArrayList<Integer>>(res);
         return ans;
     }
 }
