@@ -43,7 +43,7 @@ class GfG
             if(map.containsKey(arr[i]))
             {
                 count = i - map.get(arr[i]);
-                maxCount = Math.max(count, maxCount);
+                maxCount = count > maxCount ? count : maxCount;
             }
             else           //stores prefix sum and the first occurence pf the prefix sum
             {
