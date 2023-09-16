@@ -37,95 +37,52 @@ class GFG
 
 class Solution
 {
-    // // public boolean bfs(ArrayList<ArrayList<Integer>>adj, int[] colors)
-    // // {
-    // //     Queue<Integer> q = new LinkedList<>();
-    // //     int s = 0;
-    // //     q.add(s);
-    // //     colors[0] = 0;
-    // //     while(!q.isEmpty())
-    // //     {
-    // //         int node = q.remove();
-    // //         for(int i = 0; i<adj.get(node).size(); i++)
-    // //         {
-    // //             int v = adj.get(node).get(i);
-    // //             if(colors[v] == -1)
-    // //             {
-    // //                 if(colors[node] == 0)
-    // //                 {
-    // //                     colors[v] = 1;
-    // //                 }
-    // //                 else
-    // //                 {
-    // //                     colors[v] = 0;
-    // //                 }
-    // //                 q.add(v);
-    // //             }
-    // //             else if( colors[node] == colors[v] )
-    // //             {
-    // //                 return false;
-    // //             }
-    // //         }
-    // //     }
-    // //     return true;
-    // // }
-    
-    // public boolean isBipartite(int n, ArrayList<ArrayList<Integer>>adj)
-    // {
-    //     int[] colors = new int[n];
-    //     Arrays.fill(colors, -1);
-    //     for(int i = 0; i<n; i++)
-    //     {
-    //         if( colors[i] == -1 )
-    //         {
-    //             if (bfs(adj, colors) == false)
-    //             {
-    //                 return false;
-    //             }
-    //         }
-    //     }
-    //     return true;
-    // }
-    
-    private boolean check(int start, int V, 
-    ArrayList<ArrayList<Integer>>adj, int color[]) {
-        Queue<Integer> q = new LinkedList<Integer>();
-	    q.add(start); 
-	    color[start] = 0; 
-	    while(!q.isEmpty()) {
-	        int node = q.peek();
-	        q.remove(); 
-	        
-	        for(int it : adj.get(node)) {
-	            // if the adjacent node is yet not colored
-	            // you will give the opposite color of the node 
-	            if(color[it] == -1) {
-	                
-	                color[it] = 1 - color[node]; 
-	                q.add(it); 
-	            }
-	            // is the adjacent guy having the same color 
-	            // someone did color it on some other path 
-	            else if(color[it] == color[node]) {
-	                return false; 
-	            }
-	        }
-	    }
-	    return true; 
-    }
-
-    public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+    public boolean bfs(int s, ArrayList<ArrayList<Integer>>adj, int[] colors)
     {
-        int color[] = new int[V]; 
-	    for(int i = 0;i<V;i++) color[i] = -1; 
-	    
-	    for(int i = 0;i<V;i++) {
-	        if(color[i] == -1) {
-	            if(check(i, V, adj, color) == false) {
-	                return false; 
-	            }
-	        }
-	    }
-	    return true; 
+        Queue<Integer> q = new LinkedList<>();
+        q.add(s);
+        colors[s] = 0;
+        while(!q.isEmpty())
+        {
+            int node = q.remove();
+            for(int i = 0; i<adj.get(node).size(); i++)
+            {
+                int v = adj.get(node).get(i);
+                if(colors[v] == -1)
+                {
+                    if(colors[node] == 0)
+                    {
+                        colors[v] = 1;
+                    }
+                    else
+                    {
+                        colors[v] = 0;
+                    }
+                    q.add(v);
+                }
+                else if( colors[node] == colors[v] )
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public boolean isBipartite(int n, ArrayList<ArrayList<Integer>>adj)
+    {
+        int[] colors = new int[n];
+        Arrays.fill(colors, -1);
+        for(int i = 0; i<n; i++)
+        {
+            if( colors[i] == -1 )
+            {
+                if (bfs(i, adj, colors) == false)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
