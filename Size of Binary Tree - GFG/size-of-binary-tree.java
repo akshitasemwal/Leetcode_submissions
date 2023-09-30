@@ -117,10 +117,8 @@ class Tree
 	    {
 	        return 0;
 	    }
-	    int l = getSize(root.left);
 	    int r = getSize(root.right);
-	    
-	    return( l + r + 1);
-	    //for every node found on left side check if it is not null, and then return the sum of the number of nodes in its subtree
+	    int l = getSize(root.left);
+	    return (l + r + 1);
     }
 }
