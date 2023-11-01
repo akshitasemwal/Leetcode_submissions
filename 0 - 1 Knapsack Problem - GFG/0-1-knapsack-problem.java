@@ -62,7 +62,7 @@ class Solution
                 if(currWeight >= 0)
                 {
                     take = val[i - 1] + dp[i - 1][currWeight];
-                    dp[i][j] = Math.max(take, notTake);
+                    //dp[i][j] = Math.max(take, notTake);
                 }
                 dp[i][j] = Math.max(take, notTake);
             }
