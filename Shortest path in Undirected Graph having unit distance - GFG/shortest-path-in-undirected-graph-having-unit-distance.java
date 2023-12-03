@@ -30,66 +30,48 @@ class GFG {
 
 
 class Solution {
-    public void bfs(int src, int d, ArrayList<ArrayList<Integer>> adj, int[] ans)
-    {
-        int n = adj.size();
-        boolean[] visited = new boolean[n];
-        int[] level = new int[n];
-        Queue<Integer> q = new LinkedList<>();
-        visited[src] = true;
-        q.add(src);
-        level[src] = 0;
-        int count = 0;
-        while(!q.isEmpty())
-        {
-            int u = q.remove();
-            if(u == d)
-            {
-                break;
-            }
-            
-            for(int i = 0; i<adj.get(u).size(); i++)
-            {
-                int v = adj.get(u).get(i);
-                if(!visited[v])
-                {
-                    visited[v] = true;
-                    q.add(v);   
-                    level[v] = level[u] + 1;
-                }
-            }
-        }
-        if(visited[d])
-        {
-            ans[d] = level[d];
-        }
-        else
-        {
-            ans[d] = -1;
-        }
-    }
     
     public int[] shortestPath(int[][] edges,int n,int m ,int src) {
         // Code here
+        int[] dist = new int[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-        int[] ans = new int[n];
         for(int i = 0; i<n; i++)
         {
-            adj.add(new ArrayList<>());
+            ArrayList<Integer> a = new ArrayList<>();
+            adj.add(a);
         }
-        for(int i = 0; i<edges.length; i++)
+        for(int i = 0; i<m; i++)
         {
-            int u = edges[i][0];
-            int v = edges[i][1];
-            adj.get(u).add(v);
-            adj.get(v).add(u);
+            adj.get(edges[i][0]).add(edges[i][1]);
+            adj.get(edges[i][1]).add(edges[i][0]);
         }
         
-        for(int i = 0; i<n; i++)
+        Queue<Integer> q = new LinkedList<>(); //node
+        q.add(src);
+        dist[src] = 0;
+        while(!q.isEmpty())
         {
-            bfs(src, i, adj, ans);
+            int u = q.peek();
+            q.remove();
+            for(int i = 0; i<adj.get(u).size(); i++)
+            {
+                int v = adj.get(u).get(i);
+                if(dist[u] + 1 < dist[v])
+                {
+                    dist[v] = dist[u] + 1;
+                    q.add(v);
+                }
+            }
         }
         
-        return ans;
+        for(int i = 0; i<n; i++) 
+        {
+            if(dist[i] == Integer.MAX_VALUE) 
+            {
+                dist[i] = -1; 
+            }
+        }
+        return dist;
     }
 }
